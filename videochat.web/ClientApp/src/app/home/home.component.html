@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <h1>SignalRTC</h1>
+  <div class="row">
+    <div class="col-5">
+      <div class="row">
+        <div class="col">
+          <input [(ngModel)]="currentUser" required placeholder="UserName" type="text">
+        </div>
+        <div class="col">
+          <div class="btn-group" role="group" aria-label="button group">
+            <button [disabled]="!currentUser" (click)="saveUsername()" type="button"
+              class="btn btn-sm btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <app-list-user (userSelected)="onUserSelected($event)"></app-list-user>
+        </div>
+      </div>
+    </div>
+    <div class="col-7">
+      <div class="row">
+        <div class="col-8">
+          <input [(ngModel)]="dataString" required placeholder="Write a message" type="text">
+        </div>
+        <div class="col-4">
+          <button (click)="sendMessage()" type="button" class="btn btn-sm btn-secondary">Send</button>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col">
+
+          <div class="chat-box">
+
+            <ng-container *ngFor="let message of messages">
+              <div [ngClass]="{'my-message': message.own, 'other-message': !message.own}">
+                {{message.message}}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <h5 *ngIf="userVideo">{{userVideo}}</h5>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <video #videoPlayer width="320" height="240" controls></video>
+    </div>
+  </div>
+</div>
